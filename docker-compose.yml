@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  web:
+    build: ./app
+    command: 474872686230.dkr.ecr.us-east-2.amazonaws.com/django_docker_aws_web
+    volumes:
+      - ./app/:/usr/src/app/
+      - static_volume:/usr/src/app/static
+    expose:
+      - 8000
+  nginx:
+    build: ./nginx
+    volumes: 474872686230.dkr.ecr.us-east-2.amazonaws.com/django_docker_aws_nginx
+      - static_volume:/usr/src/app/static
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+volumes:
+  static_volume:
+
